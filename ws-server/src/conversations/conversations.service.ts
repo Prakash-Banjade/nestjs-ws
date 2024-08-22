@@ -1,11 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateConversationDto } from './dto/create-conversation.dto';
 import { UpdateConversationDto } from './dto/update-conversation.dto';
+
+type Conversation = {
+  id: number;
+}
 
 @Injectable()
 export class ConversationsService {
-  create(createConversationDto: CreateConversationDto) {
-    return 'This action adds a new conversation';
+  conversations: Conversation[] = [];
+
+  create() {
+    const newConversation: Conversation = {
+      id: this.conversations.length + 1,
+    }
+
+    this.conversations = [...this.conversations, newConversation];
+
+    return newConversation;
   }
 
   findAll() {
