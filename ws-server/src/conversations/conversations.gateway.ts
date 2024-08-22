@@ -1,7 +1,11 @@
 import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server, Socket } from "socket.io";
 
-@WebSocketGateway(3001, {}) // first is port, if not specified it will be the app port, second one is for options
+@WebSocketGateway(3001, {
+    cors: {
+        origin: '*'
+    }
+}) // first is port, if not specified it will be the app port, second one is for options
 export class ConversationsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
     server: Server; // whole server, you can use this to broadcast events to all connected clients
